@@ -1,10 +1,32 @@
-﻿namespace AcademyScheduleAnalyzer
+﻿namespace AcademyScheduleAnalyzer;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        string[] sessionNames =
+{
+"C# Basics",
+"Arrays",
+"Functions",
+"Date and Time",
+"Exception Handling"
+};
+        DateTime[] sessionDates =
         {
-            Console.WriteLine("Hello, World!");
-        }
+new DateTime(2026, 9, 10, 18, 0, 0),
+new DateTime(2026, 9, 13, 18, 0, 0),
+new DateTime(2026, 9, 17, 18, 0, 0),
+new DateTime(2026, 9, 20, 18, 0, 0),
+new DateTime(2026, 9, 24, 18, 0, 0)
+};
+        int[] sessionDurations =
+        {
+180,
+240,
+180,
+240,
+180
+};
     }
 }
