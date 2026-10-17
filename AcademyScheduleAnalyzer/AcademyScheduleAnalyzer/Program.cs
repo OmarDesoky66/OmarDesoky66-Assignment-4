@@ -28,7 +28,8 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 240,
 180
 };
-        DisplaySchedule(sessionNames, sessionDates, sessionDurations);
+        //DisplaySchedule(sessionNames, sessionDates, sessionDurations);
+        SearchSession(sessionNames, sessionDates, sessionDurations);
     }
     public static void DisplaySchedule(string[] sessionNames, DateTime[] sessionDates , int[] sessionDurations)
     {
@@ -42,5 +43,36 @@ new DateTime(2026, 9, 24, 18, 0, 0)
             Console.WriteLine($"Duration: {sessionDurations[i]} minutes");
             Console.WriteLine("");
         }
+    }
+
+    public static void SearchSession(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        Console.Write("Enter session name: ");
+        string searchName = Console.ReadLine()!;
+
+        int index = Array.FindIndex(
+        sessionNames,
+        name => string.Equals(
+            name,
+            searchName,
+            StringComparison.OrdinalIgnoreCase)
+    );
+
+
+        if (index != -1)
+        {
+            Console.WriteLine($"{index + 1}. {sessionNames[index]}");
+            Console.WriteLine($"Date: {sessionDates[index]:d MMMM yyyy}");
+            Console.WriteLine($"StartTime :  {sessionDates[index].ToString("hh:mm tt")}");
+            Console.WriteLine($"Duration: {sessionDurations[index]} minutes");
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
+
+
+
+
     }
 }
