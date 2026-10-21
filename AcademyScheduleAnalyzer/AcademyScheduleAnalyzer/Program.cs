@@ -32,17 +32,17 @@ new DateTime(2026, 9, 24, 18, 0, 0)
         //SearchSession(sessionNames, sessionDates, sessionDurations);
 
 
-        string[] SortedSessionNames = new string[sessionNames.Length];
-        Array.Copy(sessionNames, SortedSessionNames , sessionNames.Length);
-        Array.Sort(SortedSessionNames, StringComparer.OrdinalIgnoreCase);
+        //string[] SortedSessionNames = new string[sessionNames.Length];
+        //Array.Copy(sessionNames, SortedSessionNames, sessionNames.Length);
+        //Array.Sort(SortedSessionNames, StringComparer.OrdinalIgnoreCase);
 
-        Array.Reverse(SortedSessionNames);
+        //Array.Reverse(SortedSessionNames);
 
-        Console.WriteLine("Sorted and Reversed Session Names :");
-        foreach (string name in SortedSessionNames)
-        {
-            Console.WriteLine($"- {name}");
-        }
+        //Console.WriteLine("Sorted and Reversed Session Names :");
+        //foreach (string name in SortedSessionNames)
+        //{
+        //    Console.WriteLine($"- {name}");
+        //}
 
         //Console.WriteLine("Enter session name : ");
         //string enteredName = Console.ReadLine()!;
@@ -66,17 +66,24 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
 
-        string []arry2 = new string[sessionNames.Length];
-        Array.Copy(sessionNames, arry2, sessionNames.Length);
-
-        arry2[0] = "C# Basics - Updated";
-        Console.WriteLine($"Original Array : {sessionNames[0]}");
-        Console.WriteLine($"Copied Array : {arry2[0]}");
-
+        //string[] arry2 = new string[sessionNames.Length];
+        //Array.Copy(sessionNames, arry2, sessionNames.Length);
+        //arry2[0] = "C# Basics - Updated";
+        //Console.WriteLine($"Original Array : {sessionNames[0]}");
+        //Console.WriteLine($"Copied Array : {arry2[0]}");
 
 
 
+        DisplayDurationAnalysis(sessionDurations);
+        int[] sortedSessionDuration = new int[sessionDurations.Length];
 
+        Array.Copy(sessionDurations, sortedSessionDuration, sessionDurations.Length);
+        Array.Sort(sortedSessionDuration);
+
+        foreach(int item in sortedSessionDuration)
+        {
+            Console.WriteLine(item);
+        }
 
 
 
@@ -124,6 +131,34 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
 
+
+    }
+
+    public static void DisplayDurationAnalysis(int[] sessionDurations)
+    {
+        int totalDuration = 0;
+        int shortestDuration = int.MaxValue;
+        int longestDuration = int.MinValue;
+        int averageDuration = 0;
+
+        for (int i = 0; i < sessionDurations.Length; i++)
+        {
+            totalDuration += sessionDurations[i];
+            if (longestDuration < sessionDurations[i])
+            {
+                longestDuration = sessionDurations[i];
+            }
+            else if (shortestDuration > sessionDurations[i])
+            {
+                shortestDuration = sessionDurations[i];
+            }
+        }
+        averageDuration = totalDuration / sessionDurations.Length;
+
+        Console.WriteLine($"TotalDuration = {totalDuration}");
+        Console.WriteLine($"longestDuration = {longestDuration}");
+        Console.WriteLine($"shortestDuration = {shortestDuration}");
+        Console.WriteLine($"AverageDuartion = {averageDuration}");
 
     }
 
