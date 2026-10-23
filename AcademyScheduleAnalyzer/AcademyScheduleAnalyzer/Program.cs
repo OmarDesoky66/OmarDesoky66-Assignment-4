@@ -30,66 +30,99 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 240,
 180
 };
-        //DisplaySchedule(sessionNames, sessionDates, sessionDurations);
-        //SearchSession(sessionNames, sessionDates, sessionDurations);
+        DisplaySchedule(sessionNames, sessionDates, sessionDurations);
+        SearchSession(sessionNames, sessionDates, sessionDurations);
 
 
-        //string[] SortedSessionNames = new string[sessionNames.Length];
-        //Array.Copy(sessionNames, SortedSessionNames, sessionNames.Length);
-        //Array.Sort(SortedSessionNames, StringComparer.OrdinalIgnoreCase);
+        string[] SortedSessionNames = new string[sessionNames.Length];
+        Array.Copy(sessionNames, SortedSessionNames, sessionNames.Length);
+        Array.Sort(SortedSessionNames, StringComparer.OrdinalIgnoreCase);
 
-        //Array.Reverse(SortedSessionNames);
+        Array.Reverse(SortedSessionNames);
 
-        //Console.WriteLine("Sorted and Reversed Session Names :");
-        //foreach (string name in SortedSessionNames)
-        //{
-        //    Console.WriteLine($"- {name}");
-        //}
+        Console.WriteLine("Sorted and Reversed Session Names :");
+        foreach (string name in SortedSessionNames)
+        {
+            Console.WriteLine($"- {name}");
+        }
 
-        //Console.WriteLine("Enter session name : ");
-        //string enteredName = Console.ReadLine()!;
-
-
-        //Console.WriteLine($"Session Index : {Array.IndexOf(SortedSessionNames, enteredName)}");
-
-        //if (Array.Exists(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)))
-        //{
-        //    Console.WriteLine("Session found.");
-        //}
-        //else
-        //{
-        //    Console.WriteLine("Session not found.");
-        //}
-
-        //Console.WriteLine(Array.Find(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)));
-
-        //Console.WriteLine(Array.FindIndex(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)));
+        Console.WriteLine("Enter session name : ");
+        string enteredName = Console.ReadLine()!;
 
 
+        Console.WriteLine($"Session Index : {Array.IndexOf(SortedSessionNames, enteredName)}");
 
+        if (Array.Exists(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)))
+        {
+            Console.WriteLine("Session found.");
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
 
-        //string[] arry2 = new string[sessionNames.Length];
-        //Array.Copy(sessionNames, arry2, sessionNames.Length);
-        //arry2[0] = "C# Basics - Updated";
-        //Console.WriteLine($"Original Array : {sessionNames[0]}");
-        //Console.WriteLine($"Copied Array : {arry2[0]}");
+        Console.WriteLine(Array.Find(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)));
+
+        Console.WriteLine(Array.FindIndex(SortedSessionNames, name => string.Equals(name, enteredName, StringComparison.OrdinalIgnoreCase)));
 
 
 
-        //DisplayDurationAnalysis(sessionDurations);
-        //int[] sortedSessionDuration = new int[sessionDurations.Length];
 
-        //Array.Copy(sessionDurations, sortedSessionDuration, sessionDurations.Length);
-        //Array.Sort(sortedSessionDuration);
-
-        //foreach(int item in sortedSessionDuration)
-        //{
-        //    Console.WriteLine(item);
-        //}
-
-        Console.WriteLine(BuildReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations));
+        string[] arry2 = new string[sessionNames.Length];
+        Array.Copy(sessionNames, arry2, sessionNames.Length);
+        arry2[0] = "C# Basics - Updated";
+        Console.WriteLine($"Original Array : {sessionNames[0]}");
+        Console.WriteLine($"Copied Array : {arry2[0]}");
 
 
+
+        DisplayDurationAnalysis(sessionDurations);
+        int[] sortedSessionDuration = new int[sessionDurations.Length];
+
+        Array.Copy(sessionDurations, sortedSessionDuration, sessionDurations.Length);
+        Array.Sort(sortedSessionDuration);
+
+        foreach (int item in sortedSessionDuration)
+        {
+            Console.WriteLine(item);
+        }
+
+
+        int Number = 5;
+        Console.WriteLine($"Before ChangeValue : {Number}");
+        ChangeValue(ref Number);
+        Console.WriteLine($"After ChangeValue : {Number}");
+
+
+        Console.Write("Enter session name: ");
+        string searchName = Console.ReadLine()!;
+
+        if (FindSession(sessionNames, sessionDurations, searchName, out int sessionIndex, out int sessionDuration))
+        {
+            Console.WriteLine($"Index :{sessionIndex}");
+            Console.WriteLine($"Duration {sessionDuration} minutes");
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
+
+
+
+        //Part 7
+
+        int[] arr = { 1, 2, 3, 4, 5 };
+        Console.WriteLine($"Before ChangeArrayWithoutRef : {arr[0]}");
+        foreach(int item in arr)
+        {
+            Console.WriteLine(item);
+        }
+        ChangeArrayWithoutRef(arr);
+        Console.WriteLine($"After ChangeArrayWithoutRef : {arr[0]}");
+        foreach (int item in arr)
+        {
+            Console.WriteLine(item);
+        }
 
 
     }
@@ -233,7 +266,6 @@ new DateTime(2026, 9, 24, 18, 0, 0)
         return sessionStart.AddMinutes(sessionDuration);
     }
 
-    // This function reads a session date from the user and returns it as a DateTime object.
 
     public static DateTime ReadSessionDate()
     {
@@ -297,6 +329,43 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
         return report.ToString();
     }
+
+    //Part 7 
+    public static void ChangeValue(ref int num)
+    {
+        num = 100;
+    }
+
+    public static bool FindSession(string[] sessionNames, int[] sessionDurations , string searchName, out int sessionIndex, out int sessionDuration)
+    {
+        
+        
+        sessionIndex = Array.FindIndex(sessionNames,name => string.Equals(name, searchName,StringComparison.OrdinalIgnoreCase));
+        if (sessionIndex != -1)
+        {
+            sessionDuration = sessionDurations[sessionIndex];
+            return true;
+        }
+        else
+        {
+            sessionDuration = 0;
+            return false;
+        }
+    }
+
+
+    public static void ChangeArrayWithoutRef(int[] arr)
+    {
+        arr[0] = 100;
+    }
+
+
+
+
+
+
+
+
 
 
 
