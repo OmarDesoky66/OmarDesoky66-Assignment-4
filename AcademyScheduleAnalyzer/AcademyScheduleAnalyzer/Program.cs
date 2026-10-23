@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AcademyScheduleAnalyzer;
 
@@ -30,8 +31,6 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 240,
 180
 };
-
-
         //DisplaySchedule(sessionNames, sessionDates, sessionDurations);
         //SearchSession(sessionNames, sessionDates, sessionDurations);
 
@@ -128,12 +127,23 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
 
-        //Part 8
-        Console.WriteLine(CalculateTotalDuration(120, 180));
-        Console.WriteLine(CalculateTotalDuration(120, 180, 240));
-        Console.WriteLine(CalculateTotalDuration(60, 90, 120, 180, 240));
+        ////Part 8
+        //Console.WriteLine(CalculateTotalDuration(120, 180));
+        //Console.WriteLine(CalculateTotalDuration(120, 180, 240));
+        //Console.WriteLine(CalculateTotalDuration(60, 90, 120, 180, 240));
+
+
+
+
+
+        //Part 9
+
+        SessionDateDetails(sessionNames, sessionDates, sessionDurations);   
+
 
     }
+
+
     public static void DisplaySchedule(string[] sessionNames, DateTime[] sessionDates , int[] sessionDurations)
     {
         Console.WriteLine("Academy Schedule:");
@@ -382,13 +392,41 @@ new DateTime(2026, 9, 24, 18, 0, 0)
     }
 
 
+    //Part 9
+    public static void DisplaySessionDetails(string sessionName,DateTime sessionDate,int sessionDuration)
+    {
+        Console.WriteLine($"Session: {sessionName}");
+        Console.WriteLine($"Date: {sessionDate:dd MMMM yyyy}");
+        Console.WriteLine($"Day: {sessionDate.DayOfWeek}");
+        Console.WriteLine($"Year: {sessionDate.Year}");
+        Console.WriteLine($"Month: {sessionDate.Month}");
+        Console.WriteLine($"Day Number: {sessionDate.Day}");
+        Console.WriteLine($"Start Time: {sessionDate:hh:mm tt}");
+        Console.WriteLine($"Duration: {sessionDuration} minutes");
 
+        DateTime endTime = GetSessionEndTime(sessionDate, sessionDuration);
 
+        Console.WriteLine($"End Time: {endTime:hh:mm tt}");
+    }
+    public static void SessionDateDetails(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        Console.Write("Enter session name: ");
+        string searchName = Console.ReadLine()!;
 
+        int index = Array.FindIndex(
+            sessionNames,
+            name => string.Equals(name, searchName, StringComparison.OrdinalIgnoreCase));
 
-
-
-
-
-
+        if (index != -1)
+        {
+            DisplaySessionDetails(
+                sessionNames[index],
+                sessionDates[index],
+                sessionDurations[index]);
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
+    }
 }
