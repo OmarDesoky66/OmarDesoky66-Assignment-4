@@ -1,4 +1,6 @@
-﻿namespace AcademyScheduleAnalyzer;
+﻿using System.Text;
+
+namespace AcademyScheduleAnalyzer;
 
 internal class Program
 {
@@ -74,16 +76,18 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
 
-        DisplayDurationAnalysis(sessionDurations);
-        int[] sortedSessionDuration = new int[sessionDurations.Length];
+        //DisplayDurationAnalysis(sessionDurations);
+        //int[] sortedSessionDuration = new int[sessionDurations.Length];
 
-        Array.Copy(sessionDurations, sortedSessionDuration, sessionDurations.Length);
-        Array.Sort(sortedSessionDuration);
+        //Array.Copy(sessionDurations, sortedSessionDuration, sessionDurations.Length);
+        //Array.Sort(sortedSessionDuration);
 
-        foreach(int item in sortedSessionDuration)
-        {
-            Console.WriteLine(item);
-        }
+        //foreach(int item in sortedSessionDuration)
+        //{
+        //    Console.WriteLine(item);
+        //}
+
+        Console.WriteLine(BuildReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations));
 
 
 
@@ -160,6 +164,138 @@ new DateTime(2026, 9, 24, 18, 0, 0)
         Console.WriteLine($"shortestDuration = {shortestDuration}");
         Console.WriteLine($"AverageDuartion = {averageDuration}");
 
+    }
+
+
+    public static void DisplaySessions(string[] sessionNames)
+    {
+        foreach (string name in sessionNames)
+        {
+            Console.WriteLine($"- {name}");
+        }
+    }
+
+    public static int GetTotalDuration(int[]sessionDurations)
+    {
+        int total=0;
+        for (int i = 0; i < sessionDurations.Length; i++)
+        {
+            total += sessionDurations[i];
+            
+        }
+        return total;
+    }
+
+    public static float GetAverageDuration(int[] sessionDurations)
+    {
+        int total = 0;
+        for (int i = 0; i < sessionDurations.Length; i++)
+        {
+            total += sessionDurations[i];
+
+        }
+        return (float)total/sessionDurations.Length;
+    }
+
+    public static int GetLongestDuration(int[] sessionDurations)
+    {
+        int longestDuration = int.MinValue;
+
+        for (int i = 0; i < sessionDurations.Length; i++)
+        {
+            if (longestDuration < sessionDurations[i])
+            {
+                longestDuration = sessionDurations[i];
+            }
+
+        }
+        return longestDuration;
+    }
+
+
+    public static int GetShortestDuration(int[] sessionDurations)
+    {
+        int shortestDuration = int.MaxValue;
+
+        for (int i = 0; i < sessionDurations.Length; i++)
+        {
+            if (shortestDuration > sessionDurations[i])
+            {
+                shortestDuration = sessionDurations[i];
+            }
+
+        }
+        return shortestDuration;
+    }
+
+    public static DateTime GetSessionEndTime(DateTime sessionStart, int sessionDuration)
+    {
+        return sessionStart.AddMinutes(sessionDuration);
+    }
+
+    // This function reads a session date from the user and returns it as a DateTime object.
+
+    public static DateTime ReadSessionDate()
+    {
+        DateTime sessionDate;
+
+        while (true)
+        {
+            Console.Write("Enter session date and time (e.g. 10/09/2026 18:00): ");
+
+            if (DateTime.TryParse(Console.ReadLine(), out sessionDate))
+            {
+                return sessionDate;
+            }
+
+            Console.WriteLine("Invalid date or time. Please try again.");
+        }
+    }
+
+    public static string BuildReportUsingString(string[] sessionNames,DateTime[] sessionDates,int[] sessionDurations)
+    {
+        string report = "ACADEMY SCHEDULE REPORT\n";
+        report += "-----------------------\n";
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report += $"Session: {sessionNames[i]}\n";
+            report += $"Date: {sessionDates[i]:d MMMM yyyy}\n";
+            report += $"Duration: {sessionDurations[i]} minutes\n";
+            report += $"End Time: {GetSessionEndTime(sessionDates[i], sessionDurations[i]):hh:mm tt}\n";
+            report += "\n";
+        }
+
+        report += $"Total Duration: {GetTotalDuration(sessionDurations)} minutes\n";
+        report += $"Average Duration: {GetAverageDuration(sessionDurations):F2} minutes\n";
+
+        return report;
+    }
+
+    public static string BuildReportUsingStringBuilder(string[] sessionNames,DateTime[] sessionDates,int[] sessionDurations)
+    {
+        StringBuilder report = new StringBuilder();
+
+        report.AppendLine("ACADEMY SCHEDULE REPORT");
+        report.AppendLine("-----------------------");
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report.AppendLine($"Session: {sessionNames[i]}");
+            report.AppendLine($"Date: {sessionDates[i]:d MMMM yyyy}");
+            report.AppendLine($"Duration: {sessionDurations[i]} minutes");
+            report.AppendLine(
+                $"End Time: {GetSessionEndTime(sessionDates[i], sessionDurations[i]):hh:mm tt}");
+            report.AppendLine();
+        }
+
+        report.AppendLine(
+            $"Total Duration: {GetTotalDuration(sessionDurations)} minutes");
+
+        report.AppendLine(
+            $"Average Duration: {GetAverageDuration(sessionDurations):F2} minutes");
+
+        return report.ToString();
     }
 
 
