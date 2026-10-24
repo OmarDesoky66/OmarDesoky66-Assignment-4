@@ -20,8 +20,8 @@ internal class Program
 new DateTime(2026, 9, 10, 18, 0, 0),
 new DateTime(2026, 9, 13, 18, 0, 0),
 new DateTime(2026, 9, 17, 18, 0, 0),
-new DateTime(2026, 9, 20, 18, 0, 0),
-new DateTime(2026, 9, 24, 18, 0, 0)
+new DateTime(2026, 10, 27, 18, 0, 0),
+new DateTime(2026, 11, 5, 18, 0, 0)
 };
         int[] sessionDurations =
         {
@@ -136,13 +136,29 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
 
-        //Part 9
-        SessionDateDetails(sessionNames, sessionDates, sessionDurations);
+        ////Part 9
+        //SessionDateDetails(sessionNames, sessionDates, sessionDurations);
 
-        //Part 10
-        DateDifference(sessionNames, sessionDates);
+        ////Part 10
+        //DateDifference(sessionNames, sessionDates);
 
+        //Part 11
+        for (int i = 0; i < sessionDates.Length; i++)
+        {
+            if (DateTime.Compare(sessionDates[i], DateTime.Now) < 0)
+            {
+                Console.WriteLine($"{sessionNames[i]} Past.");
+            }
+            else if (DateTime.Compare(sessionDates[i], DateTime.Now) > 0)
+            {
+                Console.WriteLine($"{sessionNames[i]} Upcoming.");
+            }
+            else
+            {
+                Console.WriteLine($"{sessionNames[i]} Today.");
 
+            }
+        }
     }
 
 
