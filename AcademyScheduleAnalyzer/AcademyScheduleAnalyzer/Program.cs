@@ -137,8 +137,10 @@ new DateTime(2026, 9, 24, 18, 0, 0)
 
 
         //Part 9
+        SessionDateDetails(sessionNames, sessionDates, sessionDurations);
 
-        SessionDateDetails(sessionNames, sessionDates, sessionDurations);   
+        //Part 10
+        DateDifference(sessionNames, sessionDates);
 
 
     }
@@ -429,4 +431,33 @@ new DateTime(2026, 9, 24, 18, 0, 0)
             Console.WriteLine("Session not found.");
         }
     }
+
+    //Part 10
+    public static void DateDifference(string[] sessionNames, DateTime[] sessionDates)
+    {
+        Console.Write("Enter first session name: ");
+        string firstSessionName = Console.ReadLine()!;
+        Console.WriteLine("Enter second session name: ");
+        string secondSessionName = Console.ReadLine()!;
+
+        int firstIndex = Array.FindIndex(sessionNames, name => string.Equals(name, firstSessionName, StringComparison.OrdinalIgnoreCase));
+        int secondIndex = Array.FindIndex(sessionNames, name => string.Equals(name, secondSessionName, StringComparison.OrdinalIgnoreCase));
+
+        if (firstIndex == -1 || secondIndex == -1)
+        {
+            Console.WriteLine("Session not found.");
+            return ;
+        }
+
+        TimeSpan difference =
+            (sessionDates[firstIndex] - sessionDates[secondIndex]).Duration();
+
+        Console.WriteLine("Difference:");
+        Console.WriteLine($"{difference.TotalDays} days");
+        Console.WriteLine($"{difference.TotalHours} hours");
+
+
+    }
+
+
 }
