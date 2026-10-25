@@ -19,7 +19,7 @@ internal class Program
         {
 new DateTime(2026, 9, 10, 18, 0, 0),
 new DateTime(2026, 9, 13, 18, 0, 0),
-new DateTime(2026, 9, 17, 18, 0, 0),
+new DateTime(2026, 11, 17, 18, 0, 0),
 new DateTime(2026, 10, 27, 18, 0, 0),
 new DateTime(2026, 11, 5, 18, 0, 0)
 };
@@ -143,22 +143,26 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //DateDifference(sessionNames, sessionDates);
 
         //Part 11
-        for (int i = 0; i < sessionDates.Length; i++)
-        {
-            if (DateTime.Compare(sessionDates[i], DateTime.Now) < 0)
-            {
-                Console.WriteLine($"{sessionNames[i]} Past.");
-            }
-            else if (DateTime.Compare(sessionDates[i], DateTime.Now) > 0)
-            {
-                Console.WriteLine($"{sessionNames[i]} Upcoming.");
-            }
-            else
-            {
-                Console.WriteLine($"{sessionNames[i]} Today.");
+        //for (int i = 0; i < sessionDates.Length; i++)
+        //{
+        //    if (DateTime.Compare(sessionDates[i], DateTime.Now) < 0)
+        //    {
+        //        Console.WriteLine($"{sessionNames[i]} Past.");
+        //    }
+        //    else if (DateTime.Compare(sessionDates[i], DateTime.Now) > 0)
+        //    {
+        //        Console.WriteLine($"{sessionNames[i]} Upcoming.");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine($"{sessionNames[i]} Today.");
 
-            }
-        }
+        //    }
+        //}
+
+
+        //Part 12
+        //FindNextSession(sessionNames, sessionDates);
     }
 
 
@@ -475,5 +479,33 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
     }
 
+    public static void FindNextSession(string[] sessionNames , DateTime[] sessionDates)
+    {
+        TimeSpan difference;
+        TimeSpan MinDifference = TimeSpan.MaxValue;
+        StringBuilder sessionName = new StringBuilder();
 
+        for(int i =0; i < sessionDates.Length; i++)
+        {
+            difference = sessionDates[i] - DateTime.Now;
+            if(difference < TimeSpan.Zero)
+            {
+                continue;
+            }
+            else
+            {
+                if (difference < MinDifference)
+                {
+                    MinDifference = difference;
+                    sessionName.Clear();
+                    sessionName = new StringBuilder(sessionNames[i]);
+                }
+            }
+
+            
+            
+        }
+        
+        Console.WriteLine($"Next Session is {sessionName.ToString()} in {MinDifference.TotalDays} days and {MinDifference.TotalHours} hours.");
+    }
 }
