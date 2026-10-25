@@ -166,7 +166,10 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
 
         //Part 13
-        DateFormatting(sessionDates[0]);
+        //DateFormatting(sessionDates[0]);
+
+        Console.WriteLine(GetValidDate());
+
     }
 
 
@@ -525,5 +528,28 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         Console.WriteLine(sessionDate.ToString("dddd, dd MMMM yyyy"));
         Console.WriteLine(sessionDate.ToString("hh:mm tt"));
     }
-    
+
+
+    public static DateTime GetValidDate()
+    {
+        while (true)
+        {
+            Console.Write("Enter date (yyyy-MM-dd HH:mm): ");
+            string input = Console.ReadLine()!;
+
+            if (DateTime.TryParseExact(
+                input,
+                "yyyy-MM-dd HH:mm",
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None,
+                out DateTime date))
+            {
+                return date;
+            }
+
+            Console.WriteLine("Invalid date! Please try again.");
+        }
+    }
+
+
 }
