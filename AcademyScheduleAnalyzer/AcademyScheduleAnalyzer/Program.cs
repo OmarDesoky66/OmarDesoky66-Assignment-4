@@ -163,6 +163,10 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
         //Part 12
         //FindNextSession(sessionNames, sessionDates);
+
+
+        //Part 13
+        DateFormatting(sessionDates[0]);
     }
 
 
@@ -508,4 +512,18 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         
         Console.WriteLine($"Next Session is {sessionName.ToString()} in {MinDifference.TotalDays} days and {MinDifference.TotalHours} hours.");
     }
+
+
+
+    public static void DateFormatting(DateTime sessionDate)
+    {
+        
+
+        Console.WriteLine(sessionDate.ToString("yyyy-MM-dd"));
+        Console.WriteLine(sessionDate.ToString("dd/MM/yyyy"));
+        Console.WriteLine(sessionDate.ToString("dd MMMM yyyy"));
+        Console.WriteLine(sessionDate.ToString("dddd, dd MMMM yyyy"));
+        Console.WriteLine(sessionDate.ToString("hh:mm tt"));
+    }
+    
 }
