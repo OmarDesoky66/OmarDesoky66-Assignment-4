@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.VisualBasic.FileIO;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AcademyScheduleAnalyzer;
@@ -168,7 +169,9 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //Part 13
         //DateFormatting(sessionDates[0]);
 
-        Console.WriteLine(GetValidDate());
+        
+
+
 
     }
 
@@ -516,8 +519,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         Console.WriteLine($"Next Session is {sessionName.ToString()} in {MinDifference.TotalDays} days and {MinDifference.TotalHours} hours.");
     }
 
-
-
+    //Part 13
     public static void DateFormatting(DateTime sessionDate)
     {
         
@@ -529,7 +531,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         Console.WriteLine(sessionDate.ToString("hh:mm tt"));
     }
 
-
+    //Part 14
     public static DateTime GetValidDate()
     {
         while (true)
@@ -551,5 +553,24 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         }
     }
 
+    //Part 15
+    public static void Convert()
+    {
+        while (true)
+        {
+            try
+            {
+                Console.Write("Choose an option: ");
+                int option = int.Parse(Console.ReadLine()!);
 
-}
+                Console.WriteLine(option);
+                return;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid menu option. Enter a number.");
+            }
+        }
+    }
+
+    }
