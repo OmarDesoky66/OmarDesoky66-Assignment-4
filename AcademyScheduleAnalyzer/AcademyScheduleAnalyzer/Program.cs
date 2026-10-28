@@ -170,8 +170,22 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //DateFormatting(sessionDates[0]);
 
 
-        InvalidArrayIndex(sessionNames);
+        //Part 17
+        while (true)
+        {
+            try
+            {
+                Console.Write("Enter duration: ");
+                int duration = int.Parse(Console.ReadLine()!);
 
+                ValidateDuration(duration);
+                return;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 
@@ -594,5 +608,15 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         }
 
 
+    }
+
+    public static void ValidateDuration(int duration)
+    {
+        if (duration <= 0)
+        {
+            throw new ArgumentException("Duration must be greater than zero.");
+        }
+
+        Console.WriteLine("Duration accepted.");
     }
 }
