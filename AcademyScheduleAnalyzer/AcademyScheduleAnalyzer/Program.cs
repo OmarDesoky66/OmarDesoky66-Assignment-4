@@ -169,8 +169,8 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //Part 13
         //DateFormatting(sessionDates[0]);
 
-        
 
+        InvalidArrayIndex(sessionNames);
 
 
     }
@@ -560,7 +560,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         {
             try
             {
-                Console.Write("Choose an option: ");
+                Console.WriteLine("Choose an option: ");
                 int option = int.Parse(Console.ReadLine()!);
 
                 Console.WriteLine(option);
@@ -573,4 +573,26 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         }
     }
 
+
+    public static void InvalidArrayIndex(string[] sessionNames)
+    {
+        while (true)
+        {
+            try
+            {
+                Console.Write("Enter session index: ");
+                int index = int.Parse(Console.ReadLine()!);
+
+                Console.WriteLine($"Session: {sessionNames[index]}");
+                return;
+
+            }
+            catch(IndexOutOfRangeException)
+            {
+                Console.WriteLine("The selected session index is out of range");
+            }
+        }
+
+
     }
+}
