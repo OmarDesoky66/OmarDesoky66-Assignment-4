@@ -171,21 +171,24 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
 
         //Part 17
-        while (true)
-        {
-            try
-            {
-                Console.Write("Enter duration: ");
-                int duration = int.Parse(Console.ReadLine()!);
+        //while (true)
+        //{
+        //    try
+        //    {
+        //        Console.Write("Enter duration: ");
+        //        int duration = int.Parse(Console.ReadLine()!);
 
-                ValidateDuration(duration);
-                return;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //        ValidateDuration(duration);
+        //        return;
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
+
+
+        InvalidArrayIndexUsingFinally(sessionNames);
 
     }
 
@@ -618,5 +621,33 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         }
 
         Console.WriteLine("Duration accepted.");
+    }
+
+
+
+    public static void InvalidArrayIndexUsingFinally(string[] sessionNames)
+    {
+        
+            try
+            {
+                Console.Write("Enter session index: ");
+                int index = int.Parse(Console.ReadLine()!);
+
+                Console.WriteLine($"Session: {sessionNames[index]}");
+                return;
+
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("The selected session index is out of range");
+            }
+
+            finally
+            {
+                Console.WriteLine("Input operation finished.");
+            }
+        
+
+
     }
 }
