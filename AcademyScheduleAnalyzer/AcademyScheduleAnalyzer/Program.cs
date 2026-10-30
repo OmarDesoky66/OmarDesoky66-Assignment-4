@@ -4,6 +4,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AcademyScheduleAnalyzer;
 
+using BenchmarkDotNet.Running;
+using AcademyScheduleAnalyzer.Benchmarks;
+
 internal class Program
 {
     static void Main(string[] args)
@@ -195,7 +198,14 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //Console.WriteLine(ScheduleReportUsingString(sessionNames, sessionDates, sessionDurations));
 
         //Part 20
-        Console.WriteLine(ScheduleReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations)); 
+        //Console.WriteLine(ScheduleReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations)); 
+
+
+        if (args.Contains("--benchmark"))
+        {
+            BenchmarkRunner.Run<StringBenchmark>();
+            return;
+        }
 
     }
 
