@@ -187,10 +187,15 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //    }
         //}
 
-
+        //Part 18
         //InvalidArrayIndexUsingFinally(sessionNames);
 
-        Console.WriteLine(ScheduleReportUsingString(sessionNames, sessionDates, sessionDurations));
+
+        //Part 19
+        //Console.WriteLine(ScheduleReportUsingString(sessionNames, sessionDates, sessionDurations));
+
+        //Part 20
+        Console.WriteLine(ScheduleReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations)); 
 
     }
 
@@ -656,7 +661,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
     }
 
-
+    //Part 19
     public static string ScheduleReportUsingString(string[] sessionNames, DateTime[] sessionDates , int[] sessionDurations)
     {
         string report = "";
@@ -668,5 +673,18 @@ new DateTime(2026, 11, 5, 18, 0, 0)
             report += "\n";
         }
         return report;
+    }
+
+    //Part 20
+    public static string ScheduleReportUsingStringBuilder(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        var report = new StringBuilder();
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report.Append($"{sessionNames[i]} - {sessionDates[i]:dd/MM/yyyy hh:mm tt} - {sessionDurations[i]} minutes");
+            report.Append("\n");
+        }
+        return report.ToString();
     }
 }
