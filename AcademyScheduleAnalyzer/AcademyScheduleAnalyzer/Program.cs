@@ -188,7 +188,9 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //}
 
 
-        InvalidArrayIndexUsingFinally(sessionNames);
+        //InvalidArrayIndexUsingFinally(sessionNames);
+
+        Console.WriteLine(ScheduleReportUsingString(sessionNames, sessionDates, sessionDurations));
 
     }
 
@@ -591,6 +593,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
     }
 
 
+    //Part 16
     public static void InvalidArrayIndex(string[] sessionNames)
     {
         while (true)
@@ -613,6 +616,8 @@ new DateTime(2026, 11, 5, 18, 0, 0)
 
     }
 
+
+    //Part 17
     public static void ValidateDuration(int duration)
     {
         if (duration <= 0)
@@ -624,7 +629,7 @@ new DateTime(2026, 11, 5, 18, 0, 0)
     }
 
 
-
+    //part 18
     public static void InvalidArrayIndexUsingFinally(string[] sessionNames)
     {
         
@@ -649,5 +654,19 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         
 
 
+    }
+
+
+    public static string ScheduleReportUsingString(string[] sessionNames, DateTime[] sessionDates , int[] sessionDurations)
+    {
+        string report = "";
+
+        for(int i =0; i< sessionNames.Length; i++)
+        {
+            report += $"{sessionNames[i]} - {sessionDates[i]:dd/MM/yyyy hh:mm tt} - {sessionDurations[i]} minutes";
+
+            report += "\n";
+        }
+        return report;
     }
 }
