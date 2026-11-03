@@ -201,11 +201,210 @@ new DateTime(2026, 11, 5, 18, 0, 0)
         //Console.WriteLine(ScheduleReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations)); 
 
 
-        if (args.Contains("--benchmark"))
+        //if (args.Contains("--benchmark"))
+        //{
+        //    BenchmarkRunner.Run<StringBenchmark>();
+        //    return;
+        //}
+
+
+        int option;
+
+
+        do
         {
-            BenchmarkRunner.Run<StringBenchmark>();
-            return;
-        }
+            Console.WriteLine("===================================");
+            Console.WriteLine("      Academy Schedule Analyzer");
+            Console.WriteLine("===================================");
+            Console.WriteLine("1. Display all sessions");
+            Console.WriteLine("2. Search for a session");
+            Console.WriteLine("3. Sort session names");
+            Console.WriteLine("4. Reverse session names");
+            Console.WriteLine("5. Find session index");
+            Console.WriteLine("6. Check if session exists");
+            Console.WriteLine("7. Show duration statistics");
+            Console.WriteLine("8. Show session date details");
+            Console.WriteLine("9. Show past and upcoming sessions");
+            Console.WriteLine("10. Find next session");
+            Console.WriteLine("11. Compare two session dates");
+            Console.WriteLine("12. Read and validate a custom date");
+            Console.WriteLine("13. Select session by index");
+            Console.WriteLine("14. Validate session duration");
+            Console.WriteLine("15. Generate report using string");
+            Console.WriteLine("16. Generate report using StringBuilder");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("===================================");
+
+            Console.Write("Choose an option: ");
+
+            if (!int.TryParse(Console.ReadLine(), out option))
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            Console.WriteLine();
+
+            switch (option)
+            {
+                case 1:
+                    DisplaySchedule(sessionNames, sessionDates, sessionDurations);
+                    break;
+
+                case 2:
+                    SearchSession(sessionNames, sessionDates, sessionDurations);
+                    break;
+
+                case 3:
+                    string[] sortedNames = new string[sessionNames.Length];
+
+                    Array.Copy(sessionNames, sortedNames, sessionNames.Length);
+                    Array.Sort(sortedNames, StringComparer.OrdinalIgnoreCase);
+
+                    Console.WriteLine("Sorted Session Names:");
+                    DisplaySessions(sortedNames);
+                    break;
+
+                case 4:
+                    string[] reversedNames = new string[sessionNames.Length];
+
+                    Array.Copy(sessionNames, reversedNames, sessionNames.Length);
+                    Array.Reverse(reversedNames);
+
+                    Console.WriteLine("Reversed Session Names:");
+                    DisplaySessions(reversedNames);
+                    break;
+
+                case 5:
+                    Console.Write("Enter session name: ");
+                    string searchName = Console.ReadLine()!;
+
+                    int index = Array.FindIndex(
+                        sessionNames,
+                        name => string.Equals(
+                            name,
+                            searchName,
+                            StringComparison.OrdinalIgnoreCase));
+
+                    Console.WriteLine($"Session Index: {index}");
+                    break;
+
+                case 6:
+                    Console.Write("Enter session name: ");
+                    string enteredName = Console.ReadLine()!;
+
+                    bool exists = Array.Exists(
+                        sessionNames,
+                        name => string.Equals(
+                            name,
+                            enteredName,
+                            StringComparison.OrdinalIgnoreCase));
+
+                    Console.WriteLine(exists
+                        ? "Session found."
+                        : "Session not found.");
+                    break;
+
+                case 7:
+                    DisplayDurationAnalysis(sessionDurations);
+                    break;
+
+                case 8:
+                    SessionDateDetails(sessionNames, sessionDates, sessionDurations);
+                    break;
+
+                case 9:
+                    for (int i = 0; i < sessionDates.Length; i++)
+                    {
+                        if (sessionDates[i] < DateTime.Now)
+                            Console.WriteLine($"{sessionNames[i]} - Past");
+                        else if (sessionDates[i] > DateTime.Now)
+                            Console.WriteLine($"{sessionNames[i]} - Upcoming");
+                        else
+                            Console.WriteLine($"{sessionNames[i]} - Today");
+                    }
+                    break;
+
+                case 10:
+                    FindNextSession(sessionNames, sessionDates);
+                    break;
+
+                case 11:
+                    DateDifference(sessionNames, sessionDates);
+                    break;
+
+                case 12:
+                    DateTime customDate = GetValidDate();
+                    Console.WriteLine($"Valid Date: {customDate:dddd, dd MMMM yyyy hh:mm tt}");
+                    break;
+
+                case 13:
+                    while (true)
+                    {
+                        Console.Write($"Enter session index (0-{sessionNames.Length - 1}): ");
+
+                        if (int.TryParse(Console.ReadLine(), out int selectedIndex) &&
+                            selectedIndex >= 0 &&
+                            selectedIndex < sessionNames.Length)
+                        {
+                            Console.WriteLine($"Session: {sessionNames[selectedIndex]}");
+                            break;
+                        }
+
+                        Console.WriteLine("Invalid session index. Please try again.");
+                    }
+                    break;
+
+                case 14:
+                    while (true)
+                    {
+                        try
+                        {
+                            Console.Write("Enter duration: ");
+                            int duration = int.Parse(Console.ReadLine()!);
+
+                            ValidateDuration(duration);
+                            break;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Please enter a valid number.");
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                    break;
+
+                case 15:
+                    Console.WriteLine(
+                        ScheduleReportUsingString(
+                            sessionNames,
+                            sessionDates,
+                            sessionDurations));
+                    break;
+
+                case 16:
+                    Console.WriteLine(
+                        ScheduleReportUsingStringBuilder(
+                            sessionNames,
+                            sessionDates,
+                            sessionDurations));
+                    break;
+
+                case 0:
+                    Console.WriteLine("Exiting Academy Schedule Analyzer. Goodbye!");
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Please choose a number from 0 to 16.");
+                    break;
+            }
+
+            Console.WriteLine();
+
+        } while (option != 0);
 
     }
 
